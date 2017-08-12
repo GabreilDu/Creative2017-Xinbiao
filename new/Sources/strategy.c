@@ -152,7 +152,7 @@ void control_car_action(void)
 	    {
 	    	left_turn=0;
 	    	right_turn=0;
-	    	targetspeed=80;
+	    	targetspeed=105;
 	    	SteerControl();	    	
 	    	//set_speed_pwm(700);
 //	    	set_speed_target(velocity);
@@ -188,12 +188,12 @@ void control_car_action(void)
         	//SET_steer(CENTER-(CENTER-RIGHT)*angle_rate/60-150);
         	//SET_steer(3600);
         	SET_steer(RIGHT+50);
-        	targetspeed=100;
+        	targetspeed=90;
  //       	SteerControl();	       	
         	//set_speed_pwm(350);
  //       	set_speed_target(velocity);
         	//delay_ms(50);
-        	delay_ms(70);
+        	delay_ms(200);
         }
         if(barrier_right_detected)//右边有障碍
         {
@@ -202,12 +202,12 @@ void control_car_action(void)
         	//SET_steer((LEFT-CENTER)*angle_rate/60+CENTER+150);
         	//SET_steer(3000);
         	SET_steer(LEFT-50);
-        	targetspeed=100;
+        	targetspeed=90;
 //        	SteerControl();	
         	//set_speed_pwm(350);
         	//delay_ms(50);
  //       	set_speed_target(velocity);
-            delay_ms(70);
+            delay_ms(200);
         }
        if(stuck2==1||!collision_switch1)
 //        if(stuck2==1)
@@ -215,12 +215,12 @@ void control_car_action(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=-130;
+        	targetspeed=-100;
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);
         	delay_ms(500);
-        	targetspeed=0;
+//        	targetspeed=0;
 //        	set_speed_target(0);
         }
 //        if(car_turn_around==1)//调头
@@ -228,11 +228,11 @@ void control_car_action(void)
 //        	car_turn_around=0;
 //        	Car_UTurn();//函数定义在action.c
 //        }  
-//        if(target_access)
-//        {
-//        	target_access=0;
-//        	targetspeed=130;
-//        }        
+        if(target_access)
+        {
+        	target_access=0;
+        	targetspeed=90;
+        }        
 //        if(straight_drive==1)//直行
 //        {
 //        	straight_drive=0;

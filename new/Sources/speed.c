@@ -15,7 +15,7 @@ int tsl=0,tsr=0;//targetspeedleft=0,targetspeedright=0;
 int targetspeed=0; 
 int	Motor_PWM_MAX=1000; 
 int	Motor_PWM_MIN=-1000;
-int cyclespeedleft1=60,cyclespeedright1=40,cyclespeedleft2=60,cyclespeedright2=40;//1右转115 95 2左转115 75
+int cyclespeedleft1=80,cyclespeedright1=60,cyclespeedleft2=80,cyclespeedright2=50;//1右转115 95 2左转115 75
 unsigned int speedcounter1=0,speedcounter2=0,speedcounter3=0,speedcounter4=0;
 //**********************差速参数***************************/
 signed int Speed_kc=15000;
@@ -23,15 +23,16 @@ signed int wheel_distance=9;//半车距8
 signed int RPID=0;
 double r=0;
 //**********************电机PID参数**********************************************;	
-double Speed_kp_Left=6,Speed_ki_Left=0.07,Speed_kd_Left=0;//12,0.6
-double Speed_kp_Right=6,Speed_ki_Right=0.07,Speed_kd_Right=0;	//12,0.85
+double Speed_kp_Left=7,Speed_ki_Left=0.15,Speed_kd_Left=0;//12,0.6
+double Speed_kp_Right=7,Speed_ki_Right=0.15,Speed_kd_Right=0;	//12,0.85
 
 int ErrorLeft=0,PreErrorLeft=0,Pre2ErrorLeft=0,SumErrorLeft=0,ErrorRight=0,PreErrorRight=0,Pre2ErrorRight=0,SumErrorRight=0;
 int intErrorLeft=0,intErrorRight=0;
 float Pwm_Delta_Left=0,Pwm_Delta_Right=0; 
 int tsl_PWM=0,tsr_PWM=0,tsr_Delta=0,error_Delta=0;
 int tsl_old=0,tsr_old=0;
-
+extern long angle;
+extern long Distanz;
 /*************************电机接口函数*********************/
 void SET_motor(int leftSpeed,int rightSpeed)
 {
@@ -97,6 +98,13 @@ void SpeedControl(void)//速度控制增量式
 		tsl=targetspeed;
 		tsr=targetspeed;
 	}
+	
+//	if(Distanz>10&&angle<25&&angle>-25)
+//	{
+//		Speed_kp_Left=10;Speed_ki_Left=0.3;Speed_kd_Left=0;//慢速120PID8,0.1，0；
+//		Speed_kp_Right=10;Speed_ki_Right=0.3;Speed_kd_Right=0;//慢速120PID8,0.1，0；
+//	}
+	
 	ErrorLeft=tsl-csl;
 	ErrorRight=tsr-csr;
     tsl_PWM+=(int)(Speed_kp_Left*(ErrorLeft-PreErrorLeft)+Speed_ki_Left*ErrorLeft+Speed_kd_Left*(ErrorLeft+Pre2ErrorLeft-2*PreErrorLeft));

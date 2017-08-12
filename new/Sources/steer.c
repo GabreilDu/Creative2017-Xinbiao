@@ -15,7 +15,7 @@ byte close_supersonic=1,cycle_flag=0,start_flag=1,menu=0;
 byte success=0,straight_flag=10;
 byte cycle_i=62,cycle_j=80,turnleft=65,edge=61;//turnleft为近处目标方向，不宜轻易改变//52/65
 //**********************2017创意组舵机参数**********************************************
-double target_offset=0,last_offset=0;	//舵机偏差值记录
+double target_offset=0,last_offset=0,error1=8,error2=8;	//舵机偏差值记录
 double Steer_kp=0,Steer_kd=0;//舵机P、D值
 WORD Steer_PWM[4]={0,0,0,0};//舵机输出值记录
 WORD steer=0;
@@ -23,6 +23,7 @@ extern long angle;
 extern long Distanz;
 extern int bz;
 extern int leftbackturn,rightbackturn;
+extern int light_goout;
 /*************************舵机接口函数***********************/
 void SET_steer(unsigned int steer)
 {EMIOS_0.CH[4].CBDR.R = steer;}
@@ -81,6 +82,14 @@ if(target_offset>-64&&target_offset<=-30&&Distanz<5)
 	steer=RIGHT;
 	
 }
+else if(target_offset<64&&target_offset>=30&&Distanz<5)
+{
+//	Steer_kp=6;
+//	target_offset=-100;
+	//steer=CENTER+Steer_kp*target_offset+Steer_kd*(target_offset-last_offset);//位置式PD
+	steer=LEFT;
+	
+}
 else if(leftbackturn==1)	
 {
 	leftbackturn=0;
@@ -92,20 +101,41 @@ else if(rightbackturn==1)
 	steer=RIGHT;
 }
 else 
-	{if(Distanz>10&&ABS(target_offset)<=64)
+	{
+	if(light_goout=1)
+	{
+		light_goout=0;
+		if(angle>0)
+		{
+			error1=-10;
+			error2=-10;//稳定1版 error=8
+		}
+		else
+		{
+			error1=10;
+			error2=10;
+		}
+	}
+	
+	if(Distanz>10&&ABS(target_offset)<=64)
 {
 //	if(ABS(target_offset)<16)       {Steer_kp=3.5;}
 //	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+3.5;}
 //	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+5;}
 //	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+6;}
 //	else                            {Steer_kp=7;}
-	target_offset=target_offset+7;
+	target_offset=target_offset+error1;
 	Steer_kp=6.5;
 }
 else
 {
-	target_offset=target_offset+5;//7 9偏差效果还不错
-	Steer_kp=8;
+	if(ABS(target_offset)<16)       {Steer_kp=3.5;}
+	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+3.5;}
+	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+5;}
+	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+6;}
+	else                            {Steer_kp=7;}
+	target_offset=target_offset+error2;//7 9偏差效果还不错
+//	Steer_kp=6;
 }
 	steer=CENTER+Steer_kp*target_offset+Steer_kd*(target_offset-last_offset);//位置式PD
 	last_offset=target_offset;

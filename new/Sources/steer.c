@@ -24,6 +24,7 @@ extern long Distanz;
 extern int bz;
 extern int leftbackturn,rightbackturn;
 extern int light_goout;
+extern int error_change;
 /*************************舵机接口函数***********************/
 void SET_steer(unsigned int steer)
 {EMIOS_0.CH[4].CBDR.R = steer;}
@@ -102,19 +103,20 @@ else if(rightbackturn==1)
 }
 else 
 	{
-	if(light_goout=1)
+	if(light_goout==1||error_change!=0)
 	{
 		light_goout=0;
-		if(angle>0)
+		if(angle>0||error_change==1)
 		{
 			error1=-10;
 			error2=-10;//稳定1版 error=8
 		}
-		else
+		else if(angle<=0||error_change==2)
 		{
 			error1=10;
 			error2=10;
 		}
+		error_change=0;
 	}
 	
 	if(Distanz>10&&ABS(target_offset)<=64)

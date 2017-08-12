@@ -153,7 +153,7 @@ void control_car_action(void)
 	    {
 	    	left_turn=0;
 	    	right_turn=0;
-	    	targetspeed=105;
+	    	targetspeed=80;
 	    	SteerControl();	    	
 	    	//set_speed_pwm(700);
 //	    	set_speed_target(velocity);
@@ -190,7 +190,7 @@ void control_car_action(void)
         	//SET_steer(CENTER-(CENTER-RIGHT)*angle_rate/60-150);
         	//SET_steer(3600);
         	SET_steer(RIGHT+50);
-        	targetspeed=90;
+        	targetspeed=70;
  //       	SteerControl();	       	
         	//set_speed_pwm(350);
  //       	set_speed_target(velocity);
@@ -205,7 +205,7 @@ void control_car_action(void)
         	//SET_steer((LEFT-CENTER)*angle_rate/60+CENTER+150);
         	//SET_steer(3000);
         	SET_steer(LEFT-50);
-        	targetspeed=90;
+        	targetspeed=70;
 //        	SteerControl();	
         	//set_speed_pwm(350);
         	//delay_ms(50);
@@ -218,11 +218,11 @@ void control_car_action(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=-100;
+        	targetspeed=0;
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);
-        	delay_ms(500);
+        	delay_ms(5000);
         	targetspeed=0;
 //        	set_speed_target(0);
         }
@@ -234,7 +234,7 @@ void control_car_action(void)
         if(target_access)
         {
         	target_access=0;
-        	targetspeed=90;
+        	targetspeed=75;
         }        
 //        if(straight_drive==1)//Ö±ÐÐ
 //        {

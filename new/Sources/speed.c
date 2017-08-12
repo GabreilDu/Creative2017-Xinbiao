@@ -15,7 +15,7 @@ int tsl=0,tsr=0;//targetspeedleft=0,targetspeedright=0;
 int targetspeed=0; 
 int	Motor_PWM_MAX=1000; 
 int	Motor_PWM_MIN=-1000;
-int cyclespeedleft1=80,cyclespeedright1=60,cyclespeedleft2=80,cyclespeedright2=50;//1右转115 95 2左转115 75
+int cyclespeedleft1=70,cyclespeedright1=50,cyclespeedleft2=70,cyclespeedright2=40;//1右转115 95 2左转115 75
 unsigned int speedcounter1=0,speedcounter2=0,speedcounter3=0,speedcounter4=0;
 //**********************差速参数***************************/
 signed int Speed_kc=15000;

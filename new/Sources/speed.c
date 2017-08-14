@@ -23,8 +23,8 @@ signed int wheel_distance=9;//半车距8
 signed int RPID=0;
 double r=0;
 //**********************电机PID参数**********************************************;	
-double Speed_kp_Left=7.5,Speed_ki_Left=0.2,Speed_kd_Left=0;//12,0.6
-double Speed_kp_Right=7.5,Speed_ki_Right=0.2,Speed_kd_Right=0;	//12,0.85
+double Speed_kp_Left=8,Speed_ki_Left=0.25,Speed_kd_Left=0;//12,0.6
+double Speed_kp_Right=8,Speed_ki_Right=0.25,Speed_kd_Right=0;	//12,0.85
 
 int ErrorLeft=0,PreErrorLeft=0,Pre2ErrorLeft=0,SumErrorLeft=0,ErrorRight=0,PreErrorRight=0,Pre2ErrorRight=0,SumErrorRight=0;
 int intErrorLeft=0,intErrorRight=0;

@@ -121,21 +121,21 @@ else
 	
 	if(Distanz>10&&ABS(target_offset)<=64)
 {
-	if(ABS(target_offset)<16)       {Steer_kp=3.5;}
-	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+3.5;}
-	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+5;}
-	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+6;}
-	else                            {Steer_kp=7;}
+	if(ABS(target_offset)<16)       {Steer_kp=4;}
+	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.078125+4;}
+	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+5.25;}
+	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+6.25;}
+	else                            {Steer_kp=7.25;}
 //	target_offset=target_offset+error1;
 //	Steer_kp=6.5;
 }
 else
 {
-	if(ABS(target_offset)<16)       {Steer_kp=4;}
-	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+4;}
-	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+5.5;}
-	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+6.5;}
-	else                            {Steer_kp=7.5;}
+	if(ABS(target_offset)<16)       {Steer_kp=5;}
+	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+5;}
+	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+6.5;}
+	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+7.5;}
+	else                            {Steer_kp=8.5;}
 //	target_offset=target_offset+error2;//7 9偏差效果还不错
 //	Steer_kp=6;
 }

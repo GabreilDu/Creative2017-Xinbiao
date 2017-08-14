@@ -153,7 +153,10 @@ void control_car_action(void)
 	    {
 	    	left_turn=0;
 	    	right_turn=0;
-	    	targetspeed=125;
+	    	if(ABS(angle)<42)
+	    	{targetspeed=125;}
+	    	else
+	    	{targetspeed=105;}
 	    	SteerControl();	    	
 	    	//set_speed_pwm(700);
 //	    	set_speed_target(velocity);
@@ -189,7 +192,8 @@ void control_car_action(void)
         	error_change=1;
         	//SET_steer(CENTER-(CENTER-RIGHT)*angle_rate/60-150);
         	//SET_steer(3600);
-        	SET_steer(RIGHT+50);
+ //       	SET_steer(RIGHT);
+        	SET_steer(RIGHT+10);
         	targetspeed=70;
  //       	SteerControl();	       	
         	//set_speed_pwm(350);
@@ -204,7 +208,8 @@ void control_car_action(void)
         	error_change=2;
         	//SET_steer((LEFT-CENTER)*angle_rate/60+CENTER+150);
         	//SET_steer(3000);
-        	SET_steer(LEFT-50);
+//        	SET_steer(LEFT);
+        	SET_steer(LEFT-10);
         	targetspeed=70;
 //        	SteerControl();	
         	//set_speed_pwm(350);
@@ -218,7 +223,7 @@ void control_car_action(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=00;
+        	targetspeed=0;
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);

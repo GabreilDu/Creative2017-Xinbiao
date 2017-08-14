@@ -13,7 +13,7 @@
 int csl=0,csr=0;//currentspeedleft=0,currentspeedright=0;
 int tsl=0,tsr=0;//targetspeedleft=0,targetspeedright=0;
 int targetspeed=0; 
-int	Motor_PWM_MAX=400; 
+int	Motor_PWM_MAX=425; 
 int	Motor_PWM_MIN=-250;
 int cyclespeedleft1=70,cyclespeedright1=50,cyclespeedleft2=70,cyclespeedright2=40;//1ÓÒ×ª115 95 2×ó×ª115 75
 unsigned int speedcounter1=0,speedcounter2=0,speedcounter3=0,speedcounter4=0;

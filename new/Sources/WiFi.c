@@ -488,7 +488,7 @@ void Wifi_Ctrl()
 //			{
 //				target_near=1;
 //			}
-			if(distance<9)
+			if(distance<7)
 			{
 				target_access=1;
 			}

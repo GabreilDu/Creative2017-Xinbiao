@@ -153,7 +153,7 @@ void control_car_action(void)
 	    {
 	    	left_turn=0;
 	    	right_turn=0;
-	    	targetspeed=80;
+	    	targetspeed=115;
 	    	SteerControl();	    	
 	    	//set_speed_pwm(700);
 //	    	set_speed_target(velocity);
@@ -218,7 +218,7 @@ void control_car_action(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=0;
+        	targetspeed=00;
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);

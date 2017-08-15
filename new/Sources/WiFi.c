@@ -406,7 +406,7 @@ void Wifi_Ctrl()
 //			}
 //			above_num=0;
 			
-			if(light_distance[3]-light_distance[2]>8)
+			if(light_distance[3]-light_distance[2]>7)
 			{
 				light_goout=1;
 			}
@@ -529,7 +529,7 @@ void Wifi_Ctrl()
 //				{
 //					angle_rate=50;
 //				}
-				angle=-100;
+//				angle=-100;
 //					
 //				if(angle_rate>60)
 //				{
@@ -547,7 +547,7 @@ void Wifi_Ctrl()
 //				{
 //				   angle_rate=60;
 //				}
-				angle=100;
+//				angle=100;
 			}
 //			if(remote_frame_data[8]<0x50)
 //			{

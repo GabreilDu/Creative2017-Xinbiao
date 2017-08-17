@@ -15,7 +15,7 @@ byte close_supersonic=1,cycle_flag=0,start_flag=1,menu=0;
 byte success=0,straight_flag=10;
 byte cycle_i=62,cycle_j=80,turnleft=65,edge=61;//turnleft为近处目标方向，不宜轻易改变//52/65
 //**********************2017创意组舵机参数**********************************************
-double target_offset=0,last_offset=0,error1=0,error2=0;	//舵机偏差值记录
+double target_offset=0,last_offset=0,error1=8,error2=8;	//舵机偏差值记录
 double Steer_kp=0,Steer_kd=0;//舵机P、D值
 WORD Steer_PWM[4]={0,0,0,0};//舵机输出值记录
 double steer=0;
@@ -75,7 +75,7 @@ void SteerControl()
 
 
                   //1号车PID参数       dby
-if(target_offset>-64&&target_offset<=-35&&Distanz<5)
+if(target_offset>-64&&target_offset<=-45&&Distanz<5)
 {
 //	Steer_kp=6;
 //	target_offset=-100;
@@ -83,7 +83,7 @@ if(target_offset>-64&&target_offset<=-35&&Distanz<5)
 	steer=RIGHT;
 	
 }
-else if(target_offset<64&&target_offset>=35&&Distanz<5)
+else if(target_offset<64&&target_offset>=45&&Distanz<5)
 {
 //	Steer_kp=6;
 //	target_offset=-100;
@@ -109,13 +109,13 @@ else
 		light_goout=0;
 		if(angle>0)
 		{
-			error1=-8;
-			error2=-8;//稳定1版 error=8
+			error1=-13;
+			error2=-13;//稳定1版 error=8
 		}
 		else if(angle<=0)
 		{
-			error1=8;
-			error2=8;
+			error1=13;
+			error2=13;
 		}
 		error_change=0;
 	}

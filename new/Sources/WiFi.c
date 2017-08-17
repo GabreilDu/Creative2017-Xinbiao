@@ -406,7 +406,7 @@ void Wifi_Ctrl()
 //			}
 //			above_num=0;
 			
-			if(light_distance[3]-light_distance[2]>6)
+			if(light_distance[3]-light_distance[2]>4)
 			{
 				light_goout=1;
 			}

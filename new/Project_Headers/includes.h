@@ -107,7 +107,7 @@ static unsigned int Leftspeed = 180, Rightspeed = 180;
 
 /***************steer*****************/
 #define TargetSteer EMIOS_0.CH[4].CBDR.R // 舵机值
-#define CENTER 3640//3827//3867//3845//3890
+#define CENTER 3361//3827//3867//3845//3890
 /***************speed*****************/
 #define forwardleft SIU.GPDI[41].R		//光编检测车实际方向: 0左前进 1左倒退
 #define forwardright SIU.GPDI[47].R	//光编检测车实际方向: 0右前进 1右倒退

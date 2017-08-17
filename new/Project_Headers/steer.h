@@ -8,8 +8,8 @@
 #ifndef STEER_H_
 #define STEER_H_
 
-#define RIGHT 3260//右极限角度3400
-#define LEFT 4000//左极限角度4310
+#define RIGHT 2940//右极限角度3400
+#define LEFT 3800//左极限角度4310
 
 extern byte wrong_count;
 extern byte aim,aim2;
@@ -21,7 +21,7 @@ extern byte cycle_i,cycle_j,turnleft;
 extern double target_offset,last_offset,Steer_kp;
 extern WORD Steer_PWM[4];
 
-void SET_steer(unsigned int steer);
+void SET_steer(double steer);
 void steer_error_left(void);
 void steer_error_right(void);
 extern void Steer_PDSet(void);

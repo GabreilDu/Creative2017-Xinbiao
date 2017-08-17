@@ -58,6 +58,7 @@ int leftbackturn=0,rightbackturn=0;
 unsigned long angle=0;
 unsigned long Distanz=0;
 int x,y,z=0;
+int light_goout=0;
 
 BYTE light_distance[4]={0,0,0,0};//收到WiFi距离记录
 BYTE light_angle[4]={0,0,0,0};//收到WiFi角度记录
@@ -372,40 +373,43 @@ void Wifi_Ctrl()
 			message_num1++;
 			Distanz=distance;
 			
-//			light_distance[0]=light_distance[1];light_distance[1]=light_distance[2];light_distance[2]=light_distance[3];
-//			light_distance[3]=distance;
+			light_distance[0]=light_distance[1];light_distance[1]=light_distance[2];light_distance[2]=light_distance[3];
+			light_distance[3]=distance;
 //			distance_delta1=ABS(light_distance[2]-light_distance[3]);
 			
-			for(i=0;i<9;i++)
+//			for(i=0;i<9;i++)
+//			{
+//				light_distance1[i]=light_distance1[i+1];
+//				light_angle1[i]=light_angle1[i+1];
+//				ave_dis+=light_distance1[i];
+//				ave_lig+=light_angle1[i];
+//			}
+//			
+//			light_distance1[9]=distance;
+//			light_angle1[9]=m;
+//			ave_dis=(ave_dis+light_distance1[9])/10;
+//			ave_lig=(ave_lig+light_angle1[9])/10;
+//			if(message_num1=10)
+//			{
+//				message_num1=0;				
+//				for(i=0;i<10;i++)
+//				{
+//					if(ABS(ave_dis-light_distance1[i])<1&&ABS(ave_lig-light_angle1[i])<4)
+//					{
+//						above_num++;
+//					}
+//				}				
+//			}
+//			if(above_num>8)
+//			{				
+//				stuck2=20;
+//			}
+//			above_num=0;
+			
+			if(light_distance[3]-light_distance[2]>6)
 			{
-				light_distance1[i]=light_distance1[i+1];
-				light_angle1[i]=light_angle1[i+1];
-				ave_dis+=light_distance1[i];
-				ave_lig+=light_angle1[i];
+				light_goout=1;
 			}
-			
-			light_distance1[9]=distance;
-			light_angle1[9]=m;
-			ave_dis=(ave_dis+light_distance1[9])/10;
-			ave_lig=(ave_lig+light_angle1[9])/10;
-			if(message_num1=10)
-			{
-				message_num1=0;				
-				for(i=0;i<10;i++)
-				{
-					if(ABS(ave_dis-light_distance1[i])<1&&ABS(ave_lig-light_angle1[i])<4)
-					{
-						above_num++;
-					}
-				}				
-			}
-			if(above_num>8)
-			{				
-				stuck2=20;
-			}
-			above_num=0;
-			
-			
 //			if(m>=0)
 //			{
 //					m=m-adj_rate;
@@ -484,7 +488,7 @@ void Wifi_Ctrl()
 //			{
 //				target_near=1;
 //			}
-			if(distance<7)
+			if(distance<9)
 			{
 				target_access=1;
 			}
@@ -525,7 +529,7 @@ void Wifi_Ctrl()
 //				{
 //					angle_rate=50;
 //				}
-				angle=-100;
+//				angle=-100;
 //					
 //				if(angle_rate>60)
 //				{
@@ -543,7 +547,7 @@ void Wifi_Ctrl()
 //				{
 //				   angle_rate=60;
 //				}
-				angle=100;
+//				angle=100;
 			}
 //			if(remote_frame_data[8]<0x50)
 //			{

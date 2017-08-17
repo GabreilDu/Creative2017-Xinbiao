@@ -40,6 +40,7 @@ extern short speed_number;
 extern short angle_rate;
 int dasspeed=150;//识别时速度原pwm300，李秋键更改
 int last1,last2,last3,last4,last5=0;
+int error_change=0;//=1时改右，=2时改左
 
 void Strategy_Switch(void)  //灯塔切换 
 {return;
@@ -152,7 +153,7 @@ void control_car_action(void)
 	    {
 	    	left_turn=0;
 	    	right_turn=0;
-	    	targetspeed=80;
+	    	targetspeed=105;
 	    	SteerControl();	    	
 	    	//set_speed_pwm(700);
 //	    	set_speed_target(velocity);
@@ -185,29 +186,31 @@ void control_car_action(void)
         {
 //        	targetspeed=120;
         	barrier_left_detected=0;
+        	error_change=1;
         	//SET_steer(CENTER-(CENTER-RIGHT)*angle_rate/60-150);
         	//SET_steer(3600);
         	SET_steer(RIGHT+50);
-        	targetspeed=100;
+        	targetspeed=60;
  //       	SteerControl();	       	
         	//set_speed_pwm(350);
  //       	set_speed_target(velocity);
         	//delay_ms(50);
-        	delay_ms(70);
+        	delay_ms(200);
         }
         if(barrier_right_detected)//右边有障碍
         {
 //        	targetspeed=120;
         	barrier_right_detected=0;
+        	error_change=2;
         	//SET_steer((LEFT-CENTER)*angle_rate/60+CENTER+150);
         	//SET_steer(3000);
         	SET_steer(LEFT-50);
-        	targetspeed=100;
+        	targetspeed=60;
 //        	SteerControl();	
         	//set_speed_pwm(350);
         	//delay_ms(50);
  //       	set_speed_target(velocity);
-            delay_ms(70);
+            delay_ms(200);
         }
        if(stuck2==1||!collision_switch1)
 //        if(stuck2==1)
@@ -215,11 +218,11 @@ void control_car_action(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=-130;
+        	targetspeed=00;
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);
-        	delay_ms(500);
+        	delay_ms(5000);
         	targetspeed=0;
 //        	set_speed_target(0);
         }
@@ -228,11 +231,11 @@ void control_car_action(void)
 //        	car_turn_around=0;
 //        	Car_UTurn();//函数定义在action.c
 //        }  
-//        if(target_access)
-//        {
-//        	target_access=0;
-//        	targetspeed=130;
-//        }        
+        if(target_access)
+        {
+        	target_access=0;
+        	targetspeed=70;
+        }        
 //        if(straight_drive==1)//直行
 //        {
 //        	straight_drive=0;

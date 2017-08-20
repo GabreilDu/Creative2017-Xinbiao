@@ -8,6 +8,7 @@
 #ifndef INIT_H_
 #define INIT_H_
 
+extern int mode;
 void initALL(void);
 void disableWatchdog(void);				//关看门狗
 void initModesAndClock(void);			//时钟初始化80M
@@ -27,5 +28,6 @@ void init_TFcard(void);
 void initEMIOS_0ModulusCounter(void);
 void initSTM(); 
 void init_MCB();
+void ChooseMode(void);
 
 #endif /* INIT_H_ */

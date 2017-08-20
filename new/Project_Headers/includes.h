@@ -119,6 +119,11 @@ static unsigned int Leftspeed = 180, Rightspeed = 180;
 ///****************Åö×²¿ª¹Ø****************///
 #define collision_switch1 SIU.GPDI[73].R
 
+#define switch1 SIU.GPDI[0].R  //SWITCH   A0
+#define switch2 SIU.GPDI[43].R //SWITCH   C11
+#define switch3 SIU.GPDI[16].R //SWITCH   B0
+#define switch4 SIU.GPDI[38].R //SWITCH   C6
+
 #endif /* INCLUDES_H_ */
 
 

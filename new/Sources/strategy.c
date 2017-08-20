@@ -153,7 +153,7 @@ void control_car_action(void)
 	    {
 	    	left_turn=0;
 	    	right_turn=0;
-	    	targetspeed=145;
+	    	targetspeed=135;
 	    	SteerControl();	    	
 	    	//set_speed_pwm(700);
 //	    	set_speed_target(velocity);
@@ -179,7 +179,7 @@ void control_car_action(void)
         	SET_steer(CENTER);
 //        	set_speed_target(velocity);
         	//set_speed_pwm(0);
-            delay_ms(2000);
+            delay_ms(500);
         	
         }
         if(barrier_left_detected)//左边有障碍
@@ -234,7 +234,194 @@ void control_car_action(void)
         if(target_access)
         {
         	target_access=0;
-        	targetspeed=110;
+        	targetspeed=100;
+        }        
+//        if(straight_drive==1)//直行
+//        {
+//        	straight_drive=0;
+//        	last2=1;
+//        	LCD_Write_Num(105,1,2,2);
+//        	SET_steer(CENTER);
+//        	//set_speed_pwm(dasspeed);	
+//        	set_speed_target(velocity);	
+//       }
+//        if(test_pid==1)
+//        {
+//        	test_pid=0;
+//        	SET_steer(CENTER);
+//        	set_speed_target(275);
+//        	delay_ms(5000);
+//        	//SET_steer(LEFT);
+//        	//set_speed_target(100);
+//        	//delay_ms(5000);
+//        	SET_steer(CENTER);
+//        	set_speed_target(-275);
+//        	delay_ms(5000);
+//        	set_speed_target(0);
+//        }
+}
+void control_car_action_stable(void)
+{	
+	if(speed_change==1)//修改速度
+	{
+		speed_change=0;
+		velocity=speed_number;
+		if(last1==1)
+		{
+		   last1=0;
+		   right_turn=1;
+		}
+		else if(last2==1)
+		{
+		   last2=0;
+		   straight_drive=1;
+		}
+		else if(last3==1)
+		{
+		   last3=0;
+		   car_stop=1;
+		}
+		else if(last4==1)
+		{
+		   last4=0;
+		   left_turn=1;
+		}
+	}
+		if(test_helm==1)//ceshi
+        {
+			test_helm=0;
+        	//SET_steer(CENTER-(CENTER-RIGHT)*steer_rate/42+light_offset*75);       	
+        	//SET_steer(CENTER-(CENTER-RIGHT)*steer_rate/42.0);
+        	SET_steer(steer_rate);
+        	SET_motor(500,500);
+        	delay_ms(3000);
+        	SET_motor(0,0);
+//        	set_speed_pwm(dasspeed);
+//        	set_speed_target(velocity);
+        	
+        }
+//
+////        if(stuck1>100||stuck2>50)//倒车
+////        {
+////        	stuck1=0;
+////        	stuck2=0;
+////        	//last5=1;
+////        	SET_steer(CENTER);
+////        	set_speed_target(-200);
+////        	delay_ms(1500);
+////        	set_speed_target(200);
+////        }
+//        if(car_stop==1)//停车
+//        {
+//        	car_stop=0;
+//        	last3=1;
+//        	LCD_Write_Num(105,1,3,2);
+//            SET_steer(CENTER);
+//            set_speed_target(0);	
+//        }
+//
+//        if(left_turn==1)//左转 包括避障和找灯
+//        {
+//            left_turn=0;
+//            last4=1;
+//            LCD_Write_Num(105,1,4,2);
+//            SET_steer((LEFT-CENTER)*steer_rate/42+CENTER-light_offset*75);
+//            //SET_steer((LEFT-CENTER)*steer_rate/42.0+CENTER);
+//            if(yanshi==1)
+//            {
+//                yanshi=0;
+//            	delay_ms(1000);
+//            }
+//            //set_speed_pwm(dasspeed);
+//            set_speed_target(velocity);	
+//        }
+//
+	    if(left_turn==1||right_turn==1)
+	    {
+	    	left_turn=0;
+	    	right_turn=0;
+	    	targetspeed=125;
+	    	SteerControl();	    	
+	    	//set_speed_pwm(700);
+//	    	set_speed_target(velocity);
+	    	if(yanshi==1)
+	    	{
+	    	   yanshi=0;
+	    	   delay_ms(200);
+	    	}
+	    }
+        if(message_received==1)//收到找灯命令 丢失置零
+        {
+        	message_received=0;
+        	target_lost=0;
+        }
+        if(target_lost > 35)//丢失
+        {
+        	target_lost=0;
+        	targetspeed=0;
+//        	SET_steer(RIGHT);
+//        	set_speed_target(150);
+//        	SET_steer(3050);
+//          set_speed_target(-150);
+        	SET_steer(CENTER);
+//        	set_speed_target(velocity);
+        	//set_speed_pwm(0);
+            delay_ms(500);
+        	
+        }
+        if(barrier_left_detected)//左边有障碍
+        {
+//        	targetspeed=120;
+        	barrier_left_detected=0;
+        	error_change=1;
+        	//SET_steer(CENTER-(CENTER-RIGHT)*angle_rate/60-150);
+        	//SET_steer(3600);
+        	SET_steer(RIGHT+50);
+        	targetspeed=70;
+ //       	SteerControl();	       	
+        	//set_speed_pwm(350);
+ //       	set_speed_target(velocity);
+        	//delay_ms(50);
+        	delay_ms(200);
+        }
+        if(barrier_right_detected)//右边有障碍
+        {
+//        	targetspeed=120;
+        	barrier_right_detected=0;
+        	error_change=2;
+        	//SET_steer((LEFT-CENTER)*angle_rate/60+CENTER+150);
+        	//SET_steer(3000);
+        	SET_steer(LEFT-50);
+        	targetspeed=70;
+//        	SteerControl();	
+        	//set_speed_pwm(350);
+        	//delay_ms(50);
+ //       	set_speed_target(velocity);
+            delay_ms(200);
+        }
+       if(stuck2==1||!collision_switch1)
+//        if(stuck2==1)
+        {
+        	//stuck1=0;
+        	stuck2=0;
+        	count=0;
+        	targetspeed=00;
+        	SET_steer(CENTER );
+//        	set_speed_target(-200);
+        	//set_speed_pwm(-400);
+        	delay_ms(5000);
+        	targetspeed=0;
+//        	set_speed_target(0);
+        }
+//        if(car_turn_around==1)//调头
+//        {
+//        	car_turn_around=0;
+//        	Car_UTurn();//函数定义在action.c
+//        }  
+        if(target_access)
+        {
+        	target_access=0;
+        	targetspeed=80;
         }        
 //        if(straight_drive==1)//直行
 //        {

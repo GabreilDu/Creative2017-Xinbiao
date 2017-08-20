@@ -13,7 +13,7 @@
 int csl=0,csr=0;//currentspeedleft=0,currentspeedright=0;
 int tsl=0,tsr=0;//targetspeedleft=0,targetspeedright=0;
 int targetspeed=0; 
-int	Motor_PWM_MAX=450; 
+int	Motor_PWM_MAX=400; 
 int	Motor_PWM_MIN=-250;
 int cyclespeedleft1=100,cyclespeedright1=60,cyclespeedleft2=100,cyclespeedright2=70;//1右转115 95 2左转115 75
 unsigned int speedcounter1=0,speedcounter2=0,speedcounter3=0,speedcounter4=0;
@@ -23,8 +23,8 @@ signed int wheel_distance=9;//半车距8
 signed int RPID=0;
 double r=0;
 //**********************电机PID参数**********************************************;	
-double Speed_kp_Left=7.5,Speed_ki_Left=0.2,Speed_kd_Left=0;//12,0.6
-double Speed_kp_Right=7.5,Speed_ki_Right=0.2,Speed_kd_Right=0;	//12,0.85
+double Speed_kp_Left=8,Speed_ki_Left=0.2,Speed_kd_Left=0;//12,0.6
+double Speed_kp_Right=8,Speed_ki_Right=0.2,Speed_kd_Right=0;	//12,0.85
 
 int ErrorLeft=0,PreErrorLeft=0,Pre2ErrorLeft=0,SumErrorLeft=0,ErrorRight=0,PreErrorRight=0,Pre2ErrorRight=0,SumErrorRight=0;
 int intErrorLeft=0,intErrorRight=0;
@@ -83,6 +83,8 @@ void SpeedCount(void)
 void SpeedControl(void)//速度控制增量式
 {
 //	static tsl_old,tsr_old;
+	if(mode==0)
+	{
 	if(TargetSteer==RIGHT)
 	{
 		tsl=cyclespeedleft1;
@@ -98,7 +100,25 @@ void SpeedControl(void)//速度控制增量式
 		tsl=targetspeed;
 		tsr=targetspeed;
 	}
-	
+	}
+	else if(mode==3)
+	{
+		if(TargetSteer==RIGHT)
+		{
+			tsl=cyclespeedleft1;
+			tsr=cyclespeedright1;
+		}
+		else if(TargetSteer==LEFT)
+		{
+			tsr=cyclespeedleft2-10;
+			tsl=cyclespeedright2-10;
+		}
+		else
+		{
+			tsl=targetspeed;
+			tsr=targetspeed;
+		}	
+	}
 //	if(Distanz>10&&angle<25&&angle>-25)
 //	{
 //		Speed_kp_Left=10;Speed_ki_Left=0.3;Speed_kd_Left=0;//慢速120PID8,0.1，0；

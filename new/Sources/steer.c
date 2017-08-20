@@ -15,7 +15,7 @@ byte close_supersonic=1,cycle_flag=0,start_flag=1,menu=0;
 byte success=0,straight_flag=10;
 byte cycle_i=62,cycle_j=80,turnleft=65,edge=61;//turnleft为近处目标方向，不宜轻易改变//52/65
 //**********************2017创意组舵机参数**********************************************
-double target_offset=0,last_offset=0,error1=4.5,error2=4.5;	//舵机偏差值记录
+double target_offset=0,last_offset=0,error1=10,error2=10;	//舵机偏差值记录
 double Steer_kp=0,Steer_kd=0;//舵机P、D值
 WORD Steer_PWM[4]={0,0,0,0};//舵机输出值记录
 double steer=0;
@@ -50,7 +50,14 @@ void SteerControl()
 {
 	double adj_rate=asin(2.5/Distanz)*256/360;
 	target_offset=angle;
-	Steer_kd=1;
+	if(mode==3)
+	{
+		Steer_kd=8;
+	}
+	else if(mode==0)
+	{
+		Steer_kd=9;//8
+	}
 //	if(ABS(target_offset)>40)
 //	{
 //		target_offset=1.5*target_offset;
@@ -110,37 +117,53 @@ else
 //		if(angle>0||error_change==1)
 		if(angle>0)
 		{
-			error1=-7.6;
-			error2=-7.6;//稳定1版 error=8
+			if(mode==3)
+			{
+			error1=-9;
+			error2=-9;//稳定1版 error=8
+			}
+			else if(mode==0)
+			{
+			error1=-8.5;
+			error2=-8.5;//稳定1版 error=8				
+			}
 		}
 //		else if(angle<=0||error_change==2)
 		else if(angle<=0)
 		{
-			error1=7.6;
-			error2=7.6;
+			if(mode==3)
+			{
+			error1=9;
+			error2=9;//稳定1版 error=8
+			}
+			else if(mode==0)
+			{
+			error1=8.5;
+			error2=8.5;//稳定1版 error=8				
+			}		
 		}
 		error_change=0;
 	}
 	
 	if(Distanz>10&&ABS(target_offset)<=64)
 {
-	if(ABS(target_offset)<16)       {Steer_kp=5.5;}//3.5
-	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+5.5;}
-	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+7;}
-	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+8;}
-	else                            {Steer_kp=8;}
+//	if(ABS(target_offset)<16)       {Steer_kp=5.5;}//3.5
+//	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.09375+5.5;}
+//	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.0625+7;}
+//	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.0625+8;}
+//	else                            {Steer_kp=8;}
 	target_offset=target_offset+error1;
-//	Steer_kp=6.5;
+	Steer_kp=8;
 }
 else
 {
-	if(ABS(target_offset)<16)       {Steer_kp=7;}//4
-	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.015625+7;}//
-	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.015625+7.25;}
-	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.03125+7.5;}
-	else                            {Steer_kp=8;}
+//	if(ABS(target_offset)<16)       {Steer_kp=7;}//4
+//	else if(ABS(target_offset)<32)  {Steer_kp=(ABS(target_offset)-16)*0.015625+7;}//
+//	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.015625+7.25;}
+//	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.03125+7.5;}
+//	else                            {Steer_kp=8;}
 	target_offset=target_offset+error2;//7 9偏差效果还不错
-//	Steer_kp=6;
+	Steer_kp=8;
 }
 	steer=CENTER+Steer_kp*target_offset+Steer_kd*(target_offset-last_offset);//位置式PD
 	last_offset=target_offset;

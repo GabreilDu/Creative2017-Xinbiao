@@ -6,7 +6,7 @@
  */
 
 #include "includes.h"
-
+int mode=0;
 void initALL(void)
 {
 	disableWatchdog();
@@ -30,6 +30,7 @@ void initALL(void)
 	SET_steer(LEFT);
 	delay_ms(500);
 	SET_steer(CENTER);
+	ChooseMode();
 	
 	g_f_enable_speed_control = 1;
 //	LCD_P8x16Str(0, 4, (BYTE*)"S.T=0");
@@ -351,10 +352,10 @@ void initTestIO(void)
 	SIU.PCR[31].R = 0x0200;//     B15  超声1 触发
 	SIU.GPDO[31].R = 0;
 	//SWITCH
-	SIU.PCR[0].R = 0x0100;//SWITCH   A0
-	SIU.PCR[43].R = 0x0100;//SWITCH   C11
-	SIU.PCR[16].R = 0x0100;//SWITCH   B0
-	SIU.PCR[38].R = 0x0100;//SWITCH   C6
+	SIU.PCR[0].R = 0x0103;//SWITCH   A0
+	SIU.PCR[43].R = 0x0103;//SWITCH   C11
+	SIU.PCR[16].R = 0x0103;//SWITCH   B0
+	SIU.PCR[38].R = 0x0103;//SWITCH   C6
 
 	//输入模块（摄像头、光编）
 
@@ -369,5 +370,16 @@ void initTestIO(void)
 	SIU.PCR[56].R = 0x0102;//   D8_Y0
 
 }
-
+void ChooseMode(void)
+{
+//	mode=switch1*2+switch4;
+	if(!switch1)
+	{
+		mode=0;
+	}
+	else 
+	{
+		mode=3;
+	}
+}
 

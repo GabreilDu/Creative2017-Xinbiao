@@ -50,7 +50,14 @@ void SteerControl()
 {
 	double adj_rate=asin(6.5/Distanz)*256/360;
 	target_offset=angle;
-	Steer_kd=10.5;
+	if(mode==3)
+	{
+		Steer_kd=15;
+	}
+	else if(mode==0)
+	{
+		Steer_kd=15;//8
+	}
 //	if(ABS(target_offset)>40)
 //	{
 //		target_offset=1.5*target_offset;
@@ -109,13 +116,29 @@ else
 		light_goout=0;
 		if(angle>0)
 		{
-			error1=-11.2;
-			error2=-11.2;//稳定1版 error=8
+			if(mode==3)
+			{
+			error1=-12.5;
+			error2=-12.5;//稳定1版 error=8
+			}
+			else if(mode==0)
+			{
+			error1=-12;//11
+			error2=-12;				
+			}
 		}
 		else if(angle<=0)
 		{
-			error1=11.2;
-			error2=11.2;
+			if(mode==3)
+			{
+			error1=12.5;
+			error2=12.5;//稳定1版 error=8
+			}
+			else if(mode==0)
+			{
+			error1=12;
+			error2=12;				
+			}
 		}
 		error_change=0;
 	}
@@ -128,7 +151,7 @@ else
 //	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.03125+7.5;}
 //	else                            {Steer_kp=8;}
 	target_offset=target_offset+error1;
-	Steer_kp=8;
+	Steer_kp=8.5;
 }
 else
 {
@@ -137,7 +160,7 @@ else
 //	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.015625+7.25;}
 //	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.03125+7.5;}
 //	else                            {Steer_kp=8;}
-	Steer_kp=8;
+	Steer_kp=8.5;
 	target_offset=target_offset+error2;//7 9偏差效果还不错
 //	Steer_kp=6;
 }

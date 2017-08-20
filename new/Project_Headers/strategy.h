@@ -21,4 +21,5 @@ void keep_Input(void);
 void keep_Input1(void);
 void keep_Input2(void);
 extern void control_car_action(void);
+extern void control_car_action_stable(void);
 #endif /* STRATEGY_H_ */

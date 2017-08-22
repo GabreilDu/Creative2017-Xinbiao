@@ -15,7 +15,7 @@ int tsl=0,tsr=0;//targetspeedleft=0,targetspeedright=0;
 int targetspeed=0; 
 int	Motor_PWM_MAX=400; 
 int	Motor_PWM_MIN=-250;
-int cyclespeedleft1=100,cyclespeedright1=60,cyclespeedleft2=100,cyclespeedright2=70;//1右转115 95 2左转115 75
+int cyclespeedleft1=110,cyclespeedright1=50,cyclespeedleft2=110,cyclespeedright2=60;//1右转115 95 2左转115 75
 unsigned int speedcounter1=0,speedcounter2=0,speedcounter3=0,speedcounter4=0;
 //**********************差速参数***************************/
 signed int Speed_kc=15000;
@@ -101,7 +101,7 @@ void SpeedControl(void)//速度控制增量式
 		tsr=targetspeed;
 	}
 	}
-	else if(mode==3)
+	else if(mode==3||mode==4)
 	{
 		if(TargetSteer==RIGHT)
 		{

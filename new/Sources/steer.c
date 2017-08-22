@@ -50,7 +50,7 @@ void SteerControl()
 {
 	double adj_rate=asin(2.5/Distanz)*256/360;
 	target_offset=angle;
-	if(mode==3)
+	if(mode==3||mode==4)
 	{
 		Steer_kd=8;
 	}
@@ -117,10 +117,10 @@ else
 //		if(angle>0||error_change==1)
 		if(angle>0)
 		{
-			if(mode==3)
+			if(mode==3||mode==4)
 			{
-			error1=-9;
-			error2=-9;//Œ»∂®1∞Ê error=8
+			error1=-8.5;
+			error2=-8.5;//Œ»∂®1∞Ê error=8
 			}
 			else if(mode==0)
 			{
@@ -131,10 +131,10 @@ else
 //		else if(angle<=0||error_change==2)
 		else if(angle<=0)
 		{
-			if(mode==3)
+			if(mode==3||mode==4)
 			{
-			error1=9;
-			error2=9;//Œ»∂®1∞Ê error=8
+			error1=8.5;
+			error2=8.5;//Œ»∂®1∞Ê error=8
 			}
 			else if(mode==0)
 			{

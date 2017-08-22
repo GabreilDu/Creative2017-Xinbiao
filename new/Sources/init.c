@@ -377,13 +377,17 @@ void initTestIO(void)
 void ChooseMode(void)
 {
 //	mode=switch1*2+switch4;
-	if(!switch1)
+	if(!switch1&&!switch4)
 	{
 		mode=0;
 	}
-	else 
+	else if(switch1&&switch4)
 	{
 		mode=3;
+	}
+	else if(!switch1&&switch4)
+	{
+		mode=4;
 	}
 }
 

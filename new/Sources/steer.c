@@ -50,13 +50,13 @@ void SteerControl()
 {
 	double adj_rate=asin(6.5/Distanz)*256/360;
 	target_offset=angle;
-	if(mode==3)
+	if(mode==3||mode==4)
 	{
-		Steer_kd=15;
+		Steer_kd=8;
 	}
 	else if(mode==0)
 	{
-		Steer_kd=15;//8
+		Steer_kd=8;//8
 	}
 //	if(ABS(target_offset)>40)
 //	{
@@ -82,7 +82,7 @@ void SteerControl()
 
 
                   //1号车PID参数       dby
-if(target_offset>-64&&target_offset<=-45&&Distanz<5)
+if(target_offset>-64&&target_offset<=-50&&Distanz<5)
 {
 //	Steer_kp=6;
 //	target_offset=-100;
@@ -90,7 +90,7 @@ if(target_offset>-64&&target_offset<=-45&&Distanz<5)
 	steer=RIGHT;
 	
 }
-else if(target_offset<64&&target_offset>=45&&Distanz<5)
+else if(target_offset<64&&target_offset>=50&&Distanz<5)
 {
 //	Steer_kp=6;
 //	target_offset=-100;
@@ -116,10 +116,10 @@ else
 		light_goout=0;
 		if(angle>0)
 		{
-			if(mode==3)
+			if(mode==3||mode==4)
 			{
-			error1=-12.5;
-			error2=-12.5;//稳定1版 error=8
+			error1=-10.1;
+			error2=-10.1;//稳定1版 error=8
 			}
 			else if(mode==0)
 			{
@@ -129,10 +129,10 @@ else
 		}
 		else if(angle<=0)
 		{
-			if(mode==3)
+			if(mode==3||mode==4)
 			{
-			error1=12.5;
-			error2=12.5;//稳定1版 error=8
+			error1=10.1;
+			error2=10.1;//稳定1版 error=8
 			}
 			else if(mode==0)
 			{
@@ -151,7 +151,7 @@ else
 //	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.03125+7.5;}
 //	else                            {Steer_kp=8;}
 	target_offset=target_offset+error1;
-	Steer_kp=8.5;
+	Steer_kp=7.5;
 }
 else
 {
@@ -160,7 +160,7 @@ else
 //	else if(ABS(target_offset)<48)  {Steer_kp=(ABS(target_offset)-32)*0.015625+7.25;}
 //	else if(ABS(target_offset)<64)  {Steer_kp=(ABS(target_offset)-48)*0.03125+7.5;}
 //	else                            {Steer_kp=8;}
-	Steer_kp=8.5;
+	Steer_kp=7.5;
 	target_offset=target_offset+error2;//7 9偏差效果还不错
 //	Steer_kp=6;
 }

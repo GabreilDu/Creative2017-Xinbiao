@@ -41,6 +41,7 @@ extern short angle_rate;
 int dasspeed=150;//识别时速度原pwm300，李秋键更改
 int last1,last2,last3,last4,last5=0;
 int error_change=0;//=1时改右，=2时改左
+int suicide_counter=0;
 
 void Strategy_Switch(void)  //灯塔切换 
 {return;
@@ -218,11 +219,11 @@ void control_car_action(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=0;//-80
+        	targetspeed=-80;//-80
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);
-        	delay_ms(5000);//700
+        	delay_ms(700);//700
         	targetspeed=0;
 //        	set_speed_target(0);
         }
@@ -405,13 +406,14 @@ void control_car_action_stable(void)
         	//stuck1=0;
         	stuck2=0;
         	count=0;
-        	targetspeed=0;
+        	targetspeed=-80;
         	SET_steer(CENTER );
 //        	set_speed_target(-200);
         	//set_speed_pwm(-400);
-        	delay_ms(5000);
+        	delay_ms(900);
         	targetspeed=0;
 //        	set_speed_target(0);
+        	suicide_counter++;
         }
 //        if(car_turn_around==1)//调头
 //        {
@@ -421,7 +423,7 @@ void control_car_action_stable(void)
         if(target_access)
         {
         	target_access=0;
-        	targetspeed=80;
+        	targetspeed=105;
         }        
 //        if(straight_drive==1)//直行
 //        {

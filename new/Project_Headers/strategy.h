@@ -11,6 +11,7 @@
 extern unsigned char s_data,lamp_turn,s_data1,s_data2,k_data,k_data1,k_data2;
 extern unsigned char switch_flag;  //转换标志位
 extern int g_f_enable_speed_control;
+extern int suicide_counter;
 
 void Strategy_Switch();
 void Strategy_Judge();
